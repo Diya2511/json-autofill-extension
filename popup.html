@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSON Autofill Pro</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1>JSON Autofill Pro</h1>
+        <p id="statusText">Import JSON to begin.</p>
+      </div>
+      <span class="badge" id="keyCount">0 keys</span>
+    </header>
+
+    <section class="file-panel">
+      <input id="jsonInput" type="file" accept="application/json,.json">
+      <button id="importJson" type="button" class="primary">Import JSON</button>
+      <div class="file-meta">
+        <span id="fileName">No file selected</span>
+      </div>
+    </section>
+
+    <section class="actions" aria-label="Actions">
+      <button id="autofill" type="button">Autofill</button>
+      <button id="clearMapping" type="button">Clear Mapping</button>
+      <button id="exportMapping" type="button">Export Mapping</button>
+      <button id="importMapping" type="button">Import Mapping</button>
+      <button id="settingsToggle" type="button">Settings</button>
+      <input id="mappingInput" type="file" accept="application/json,.json">
+    </section>
+
+    <section id="settingsPanel" class="settings hidden">
+      <label><input type="checkbox" data-setting="highlightFields"> Highlight fields</label>
+      <label><input type="checkbox" data-setting="autoFlatten"> Auto flatten JSON</label>
+      <label><input type="checkbox" data-setting="saveMappings"> Save mappings</label>
+      <label><input type="checkbox" data-setting="autoFillOnPageLoad"> Auto fill on page load</label>
+      <label><input type="checkbox" data-setting="fillAllSections"> Fill all sections</label>
+      <label><input type="checkbox" data-setting="useContinueFlow"> Use Continue flow</label>
+      <label><input type="checkbox" data-setting="returnToOriginalSection"> Return to original section</label>
+      <label><input type="checkbox" data-setting="strictMatching"> Strict matching</label>
+      <label><input type="checkbox" data-setting="aiMatching"> AI matching</label>
+      <label class="stacked">Navigation selectors
+        <textarea id="navigationCustomSelectors" rows="3" placeholder="button[data-next], .save-continue"></textarea>
+      </label>
+      <label class="stacked">Navigation retries
+        <input id="navigationMaxRetries" type="number" min="0" max="5" step="1">
+      </label>
+      <label class="stacked">Navigation timeout ms
+        <input id="navigationTimeoutMs" type="number" min="500" max="15000" step="250">
+      </label>
+    </section>
+
+    <section id="results" class="results hidden">
+      <div class="metrics">
+        <div><strong id="filledCount">0</strong><span>Filled</span></div>
+        <div><strong id="skippedCount">0</strong><span>Skipped</span></div>
+        <div><strong id="errorCount">0</strong><span>Errors</span></div>
+        <div><strong id="successRate">0%</strong><span>Success</span></div>
+      </div>
+      <p id="duration" class="muted"></p>
+      <p id="sectionCount" class="muted"></p>
+      <div id="skippedList" class="list"></div>
+    </section>
+
+    <section id="mappingPanel" class="mapping hidden">
+      <div class="section-title">
+        <h2>Map skipped JSON keys</h2>
+        <button id="saveMappings" type="button">Save</button>
+      </div>
+      <div id="mappingRows" class="mapping-rows"></div>
+    </section>
+  </main>
+
+  <script src="utils.js"></script>
+  <script src="mapping.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
